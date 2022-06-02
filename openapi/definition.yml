@@ -1,0 +1,84 @@
+openapi: 3.0.0
+info:
+  description: Servicio de API para Exklusive
+  version: "2.0.0"
+  title: Exklusive API
+  contact:
+    email: info@jpyrsa.mx
+servers: 
+  - description: Producción
+    url: 'http://api.local/'
+    
+paths:
+  /authors:
+    get:
+      tags:
+      - authors
+      summary: Retrieves the list of auhtors
+      description: Returns a list of Authors
+      responses:
+        '200':
+          description: Successful response
+        '500':
+          description: Failure
+  /authors/{id}:
+    get:
+      tags:
+      - authors
+      summary: Retrieves the list of auhtors
+      description: Returns a list of Authors in json format
+      parameters: 
+      - name: id
+        in: path
+        description: The id from the Author
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Successful response
+        '500':
+          description: Failure
+  /authors/:
+    post:
+      tags:
+      - authors
+      summary: Creates a new Author
+      description: This can only be done by the logged in user.
+      requestBody:
+        description: Created Authir Object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Author'
+        required: true
+      responses:
+        default:
+          description: successful operation
+
+  /negocios:
+    get:
+      tags:
+      - negocios
+      description: Returns a list of stuff              
+      responses:
+        '200':
+          description: Successful response
+        '500':
+          description: Failure
+
+components:
+  schemas:
+    Author:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        email:
+          type: string
